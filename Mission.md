@@ -4,7 +4,7 @@ Création d'une application web permettant aux clients de se connecter et de gé
 
 ## Installation
 
-- Installer et configurer Redux
+- Installer et configurer Redux X
 
 ## Fonctionnalités
 
