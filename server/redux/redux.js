@@ -17,14 +17,22 @@ const BankSlice = createSlice({
     reducers: { 
 
         //Données de l'utilisateur
-        GestionUser(state, action) {},
+        GestionUser(state, action) {
+            state.user = action.payload
+
+        },
 
         //Token JWT
-        GestionToken(state, action) {},
+        GestionToken(state, action) {
+            state.token = action.payload
+        },
 
         //état de connexion
-        GestionConnexion(state, action) {}
+        GestionConnexion(state, action) {
+            state.isLoggedIn = action.payload
+
         }
+    }
 })
 console.log(User)
 export const { } = BankSlice.actions
