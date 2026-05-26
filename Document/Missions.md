@@ -22,7 +22,7 @@ S'aider de ceci : "https://github.com/OpenClassrooms-Student-Center/Project-10-B
 ### Fonctionnalités à implémenter
 
 1. **Page d'accueil**
-   - Affichage classique de la page d'accueil (Home Page).
+   - Affichage classique de la page d'accueil (Home Page). ✅
 
 2. **Authentification (Sign-In / Sign-Out)**
    - L'utilisateur peut se connecter via le formulaire de connexion.
