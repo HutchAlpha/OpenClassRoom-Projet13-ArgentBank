@@ -4,25 +4,27 @@ const User = require('../database/models/userModel')
 const BankSlice = createSlice({
     name: "bank",
     initialState: {
-        new User { [
+        user: {
             firstName: serviceData.firstName,
             lastName: serviceData.lastName,
             email: serviceData.email,
             password: hashPassword
-        ]},
+        },
         token: null,
         isLoggedIn: false
-        
-
-        console.log("Initial State:", initialState);
     },
+
     reducers: { 
 
         //Données de l'utilisateur
-        //Token JWT
-        //état de connexion
-    }
-})
-    })
+        GestionUser(state, action) {},
 
+        //Token JWT
+        GestionToken(state, action) {},
+
+        //état de connexion
+        GestionConnexion(state, action) {}
+        }
+})
+console.log(User)
 export const { } = BankSlice.actions
