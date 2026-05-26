@@ -19,6 +19,6 @@ const users = [
 users.forEach(user => {
   axios
     .post(signupApi, user)
-    .then(response => console.log(response))
-    .catch(error => console.log(error))
+    .then(response => console.log(response.data))
+    .catch(error => console.log(error.response.data))
 })

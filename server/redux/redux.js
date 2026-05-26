@@ -16,18 +16,17 @@ const BankSlice = createSlice({
 
     reducers: { 
 
-        //Données de l'utilisateur
+        //!Données de l'utilisateur
         GestionUser(state, action) {
             state.user = action.payload
-
         },
 
-        //Token JWT
+        //!Token JWT
         GestionToken(state, action) {
             state.token = action.payload
         },
 
-        //état de connexion
+        //!État de connexion
         GestionConnexion(state, action) {
             state.isLoggedIn = action.payload
 
