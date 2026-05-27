@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
 
 const mockAccounts = [
   {
@@ -56,7 +54,6 @@ function UserPage() {
 
   return (
     <>
-      <NavBar isLoggedIn={true} userName={firstName} onSignOut={handleSignOut} />
       <main className="main bg-dark">
         <div className="header">
           {isEditing ? (
@@ -104,7 +101,6 @@ function UserPage() {
           </section>
         ))}
       </main>
-      <Footer />
     </>
   )
 }

@@ -1,10 +1,8 @@
-import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
+
 
 function HomePage() {
   return (
     <>
-      <NavBar isLoggedIn={false} />
       <main>
         <div className="hero">
           <section className="hero-content">
@@ -42,7 +40,6 @@ function HomePage() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   )
 }

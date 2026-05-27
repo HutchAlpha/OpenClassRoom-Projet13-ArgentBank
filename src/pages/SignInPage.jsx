@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
 
 function SignInPage() {
   const [username, setUsername] = useState('')
@@ -17,7 +15,6 @@ function SignInPage() {
 
   return (
     <>
-      <NavBar isLoggedIn={false} />
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
@@ -54,7 +51,6 @@ function SignInPage() {
           </form>
         </section>
       </main>
-      <Footer />
     </>
   )
 }
