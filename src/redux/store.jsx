@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-const User = require('../database/models/userModel')
 
 const BankSlice = createSlice({
     name: "bank",
