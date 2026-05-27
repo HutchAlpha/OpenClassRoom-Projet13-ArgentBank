@@ -1,16 +1,44 @@
-function Header() {
+import { Link, useNavigate } from 'react-router-dom'
+
+function Header({ isLoggedIn, userName, onSignOut }) {
+  const navigate = useNavigate()
+
+  const handleSignOut = () => {
+    if (onSignOut) onSignOut()
+    navigate('/')
+  }
+
   return (
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Argent Bank - Home Page</title>
-        <link rel="stylesheet" href="./css/main.css" />
-        <link
-        rel="stylesheet"
-        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    <nav className="main-nav">
+      <Link className="main-nav-logo" to="/">
+        <img
+          className="main-nav-logo-image"
+          src="/img/argentBankLogo.png"
+          alt="Argent Bank Logo"
         />
-    </head>
-    )
+        <h1 className="sr-only">Argent Bank</h1>
+      </Link>
+      <div>
+        {isLoggedIn ? (
+          <>
+            <Link className="main-nav-item" to="/user">
+              <i className="fa fa-user-circle"></i>
+              {' '}{userName}
+            </Link>
+            <button className="main-nav-item main-nav-item-btn" onClick={handleSignOut}>
+              <i className="fa fa-sign-out"></i>
+              {' '}Sign Out
+            </button>
+          </>
+        ) : (
+          <Link className="main-nav-item" to="/sign-in">
+            <i className="fa fa-user-circle"></i>
+            {' '}Sign In
+          </Link>
+        )}
+      </div>
+    </nav>
+  )
 }
 
 export default Header
