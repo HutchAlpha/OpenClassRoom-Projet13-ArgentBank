@@ -11,6 +11,7 @@ function UserPage() {
   // TODO: replace with real token-based auth
   const handleSignOut = () => {
     // clear stored token here
+    
   }
 
   const handleSave = () => {

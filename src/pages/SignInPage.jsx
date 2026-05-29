@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function SignInPage() {
   const [username, setUsername] = useState('')
@@ -7,9 +8,14 @@ function SignInPage() {
   const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     // TODO: call POST /api/v1/user/login and store JWT token
+    const response = await axios.post('http://localhost:3001/api/v1/user/login', {
+      email: username,
+      password,
+    })
+    console.log(response.data)
     navigate('/user')
   }
 
