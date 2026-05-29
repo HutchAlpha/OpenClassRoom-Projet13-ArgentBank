@@ -8,16 +8,27 @@ function SignInPage() {
   const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    // TODO: call POST /api/v1/user/login and store JWT token
-    const response = await axios.post('http://localhost:3001/api/v1/user/login', {
-      email: username,
-      password,
-    })
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  try {
+    const response = await axios.post(
+      'http://localhost:3001/api/v1/user/login',
+      {
+        email: username,
+        password,
+      }
+    )
+
     console.log(response.data)
-    navigate('/user')
+
+    localStorage.setItem('token', response.data.token)
+
+    //navigate('/user')
+  } catch (error) {
+    console.log('LOGIN ERROR:', error.response?.data)
   }
+}
 
   return (
     <>
