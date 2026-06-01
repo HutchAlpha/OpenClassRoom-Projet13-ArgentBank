@@ -32,20 +32,23 @@ mongo --version
 # Install dependencies
 npm install
 
-# Start local dev server
-npm
-
 # Populate database with two users
 npm run populate-db
+
+# Start local dev server
+npm run dev:server
 ```
 
-Your server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database!
+Your server should now be running at http://localhost:3001 and you will now have two users in your MongoDB database!
+
+Start App MangoDB
 
 ## Populated Database Data
 
 Once you run the `populate-db` script, you should have two users in your database:
 
 ### Tony Stark
+
 
 - First Name: `Tony`
 - Last Name: `Stark`

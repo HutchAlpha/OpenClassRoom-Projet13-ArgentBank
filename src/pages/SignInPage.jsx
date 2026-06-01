@@ -8,27 +8,30 @@ function SignInPage() {
   const [rememberMe, setRememberMe] = useState(false)
   const navigate = useNavigate()
 
-const handleSubmit = async (e) => {
-  e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-  try {
-    const response = await axios.post(
-      'http://localhost:3001/api/v1/user/login',
-      {
-        email: username,
-        password,
-      }
-    )
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/api/v1/user/login',
+        {
+          email: username,
+          password: password,
+        }
+      )
 
-    console.log(response.data)
+      console.log(response.data)
 
-    localStorage.setItem('token', response.data.token)
+      // C'EST ICI QU'IL FAUT CORRIGER : Ajouter .body avant .token
+      localStorage.setItem('token', response.data.body.token)
 
-    //navigate('/user')
-  } catch (error) {
-    console.log('LOGIN ERROR:', error.response?.data)
+      // Vous pouvez maintenant décommenter la navigation pour être redirigé !
+      navigate('/user')
+      
+    } catch (error) {
+      console.log('LOGIN ERROR:', error.response?.data)
+    }
   }
-}
 
   return (
     <>

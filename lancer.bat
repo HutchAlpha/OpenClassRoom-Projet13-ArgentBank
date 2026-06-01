@@ -5,7 +5,7 @@ title Argent Bank - Lancement
 cd /d "%~dp0"
 
 echo ================================================
-echo          ARGENT BANK - Demarrage
+echo        ARGENT BANK - Demarrage
 echo ================================================
 echo.
 
@@ -38,6 +38,15 @@ for %%i in (concurrently nodemon) do (
 :break_loop
 
 echo.
+:: ---------------- NOUVEAU BLOC MONGODB ----------------
+echo [INFO] Demarrage de la base de donnees MongoDB...
+:: Lance MongoDB reduit dans la barre des taches pour ne pas gener
+start "argentBankDB" /min mongod
+:: Attend 3 secondes pour que la base de donnees ait le temps de s'allumer
+timeout /t 3 /nobreak >nul
+:: ------------------------------------------------------
+echo.
+
 echo [INFO] Demarrage du serveur backend  (port 3001)...
 echo [INFO] Demarrage du frontend Vite    (port 5173)...
 echo.
@@ -52,10 +61,16 @@ echo.
 :: Lancer les deux serveurs en parallele
 call npm run dev
 
+:: ---------------- BLOC DE FERMETURE ----------------
+echo.
+echo [INFO] Fermeture de MongoDB en cours...
+taskkill /F /IM mongod.exe >nul 2>&1
+echo [INFO] MongoDB est ferme proprement.
+:: ---------------------------------------------------
+
 if errorlevel 1 (
     echo.
-    echo [ERREUR] Le demarrage des serveurs a echoue !
-    echo [INFO] Verifiez que les ports 3001 et 5173 ne sont pas utilises
+    echo [ERREUR] Le demarrage des serveurs a echoue ou a ete interrompu.
     pause
     exit /b 1
 )
