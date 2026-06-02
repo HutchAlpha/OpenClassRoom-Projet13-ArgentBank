@@ -36,8 +36,9 @@ function SignInPage() {
       dispatch(GestionConnexion(true))
 
       //! Récupération des données de l'utilisateur
-      const donneesUser = await axios.get(
+      const donneesUser = await axios.post(
         'http://localhost:3001/api/v1/user/profile', 
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
