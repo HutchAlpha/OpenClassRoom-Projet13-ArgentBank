@@ -5,8 +5,8 @@ import { GestionConnexion, GestionToken, GestionUser } from '../redux/bankSlice.
 
 function UserPage() {
   const [isEditing, setIsEditing] = useState(false)
-  const [firstName, setFirstName] = useState('Tony')
-  const [lastName, setLastName] = useState('Jarvis')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [editFirst, setEditFirst] = useState(firstName)
   const [editLast, setEditLast] = useState(lastName)
 

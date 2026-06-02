@@ -14,7 +14,7 @@ function SignInPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     //! Connexion + Récupération du token JWT
     try {
       const response = await axios.post(
@@ -31,10 +31,26 @@ function SignInPage() {
 
       localStorage.setItem('token', token)
 
+      //!Envoie a Redux 
       dispatch(GestionToken(token))
       dispatch(GestionConnexion(true))
 
+      //! Récupération des données de l'utilisateur
+      const donneesUser = await axios.get(
+        'http://localhost:3001/api/v1/user/profile', 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }) 
+      
+      console.log(donneesUser.data)
+      
+      //!Envoie a Redux 
+      dispatch(GestionUser(donneesUser.data.body))
+
       navigate('/user')
+
     } catch (error) {
       console.log('LOGIN ERROR:', error.response?.data)
     }
