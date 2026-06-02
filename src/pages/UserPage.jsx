@@ -3,12 +3,19 @@ import mockAccounts from '../data/Compte.json'
 import { useSelector, useDispatch } from 'react-redux'
 import { GestionConnexion, GestionToken, GestionUser } from '../redux/bankSlice.jsx'
 
+
 function UserPage() {
+
   const [isEditing, setIsEditing] = useState(false)
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [editFirst, setEditFirst] = useState(firstName)
-  const [editLast, setEditLast] = useState(lastName)
+  const [editFirst, setEditFirst] = useState('')
+  const [editLast, setEditLast] = useState('')
+
+  const firstName = useSelector((state) => state.bank.user.firstName)
+  const lastName = useSelector((state) => state.bank.user.lastName)
+
+  const token = useSelector((state) => state.bank.token)
+  const dispatch = useDispatch()
+
 
   // TODO: replace with real token-based auth
   const handleSignOut = () => {
@@ -16,12 +23,12 @@ function UserPage() {
     localStorage.removeItem('token')
     dispatch(GestionToken(null))
     dispatch(GestionConnexion(false))
-    dispatch(GestionUser(null))
+    dispatch(GestionUser({ firstName: null, lastName: null, email: null }))
   }
 
   const handleSave = () => {
     // TODO: call PUT /api/v1/user/profile to update name
-        
+
     setFirstName(editFirst)
     setLastName(editLast)
     setIsEditing(false)
