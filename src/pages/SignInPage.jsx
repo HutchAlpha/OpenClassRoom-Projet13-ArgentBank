@@ -1,16 +1,21 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { GestionToken, GestionConnexion } from '../redux/bankSlice'
 
 function SignInPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(false)
+
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    //!sauvegarde Token
+    //! Connexion + Récupération du token JWT
+
     try {
       const response = await axios.post(
         'http://localhost:3001/api/v1/user/login',
@@ -20,15 +25,16 @@ function SignInPage() {
         }
       )
 
+      const token = response.data.body.token
+
       console.log(response.data)
 
-      localStorage.setItem('token', response.data.body.token)
+      localStorage.setItem('token', token)
 
-      dispatch(GestionToken(response.data.body.token))
+      dispatch(GestionToken(token))
       dispatch(GestionConnexion(true))
-      
+
       navigate('/user')
-      
     } catch (error) {
       console.log('LOGIN ERROR:', error.response?.data)
     }
@@ -50,6 +56,7 @@ function SignInPage() {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
+
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
               <input
@@ -59,6 +66,7 @@ function SignInPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+
             <div className="input-remember">
               <input
                 type="checkbox"
@@ -68,7 +76,10 @@ function SignInPage() {
               />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            <button type="submit" className="sign-in-button">Sign In</button>
+
+            <button type="submit" className="sign-in-button">
+              Sign In
+            </button>
           </form>
         </section>
       </main>
