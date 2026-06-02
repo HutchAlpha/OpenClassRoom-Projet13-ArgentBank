@@ -1,39 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import bankReducer from "./bankSlice";
 
-function store() {
+const store = configureStore({
+  reducer: {
+    bank: bankReducer
+  }
+});
 
-    const BankSlice = createSlice({
-        name: "bank",
-        initialState: {
-            user: {
-                firstName: null,
-                lastName: null,
-                email: null,
-                password: null
-            },
-            token: null,
-            isLoggedIn: false
-        },
-
-        reducers: { 
-
-            //!Données de l'utilisateur
-            GestionUser(state, action) {
-                state.user = action.payload
-            },
-
-            //!Token JWT
-            GestionToken(state, action) {
-                state.token = action.payload
-            },
-
-            //!État de connexion
-            GestionConnexion(state, action) {
-                state.isLoggedIn = action.payload
-
-            }
-        }
-    })
-}
-
-export default store
+export default store;

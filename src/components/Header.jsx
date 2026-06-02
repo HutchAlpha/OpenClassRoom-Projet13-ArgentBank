@@ -1,12 +1,25 @@
 import { Link, useNavigate } from 'react-router-dom'
-
-function Header({ isLoggedIn, userName, onSignOut }) {
+import { useSelector, useDispatch } from 'react-redux'
+import { GestionConnexion, GestionToken, GestionUser } from '../redux/bankSlice.jsx'
+function Header() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const isLoggedIn = useSelector((state) => state.bank.isLoggedIn)
+  const userName = useSelector((state) => state.bank.user.firstName)
 
+
+  const onSignOut = () => {
+  //! Partie Déconnexion
+    console.log('User signed out')
+  }
   const handleSignOut = () => {
     if (onSignOut) onSignOut()
+    dispatch(GestionToken(null))
+    dispatch(GestionUser({ firstName: null, lastName: null, email: null }))
+    dispatch(GestionConnexion(false))
     navigate('/')
   }
+
 
   return (
     <nav className="main-nav">

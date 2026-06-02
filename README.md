@@ -43,6 +43,10 @@ Your server should now be running at http://localhost:3001 and you will now have
 
 Start App MangoDB
 
+## MAJ BDD MangoDB
+
+node populateDatabase.js
+
 ## Populated Database Data
 
 Once you run the `populate-db` script, you should have two users in your database:

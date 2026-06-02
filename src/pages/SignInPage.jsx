@@ -10,7 +10,7 @@ function SignInPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    //!sauvegarde Token
     try {
       const response = await axios.post(
         'http://localhost:3001/api/v1/user/login',
@@ -22,10 +22,11 @@ function SignInPage() {
 
       console.log(response.data)
 
-      // C'EST ICI QU'IL FAUT CORRIGER : Ajouter .body avant .token
       localStorage.setItem('token', response.data.body.token)
 
-      // Vous pouvez maintenant décommenter la navigation pour être redirigé !
+      dispatch(GestionToken(response.data.body.token))
+      dispatch(GestionConnexion(true))
+      
       navigate('/user')
       
     } catch (error) {
