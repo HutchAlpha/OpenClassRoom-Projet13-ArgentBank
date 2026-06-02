@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import mockAccounts from '../data/Compte.json'
+import { useSelector, useDispatch } from 'react-redux'
+import { GestionConnexion, GestionToken, GestionUser } from '../redux/bankSlice.jsx'
 
 function UserPage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -11,7 +13,10 @@ function UserPage() {
   // TODO: replace with real token-based auth
   const handleSignOut = () => {
     // clear stored token here
-    
+    localStorage.removeItem('token')
+    dispatch(GestionToken(null))
+    dispatch(GestionConnexion(false))
+    dispatch(GestionUser(null))
   }
 
   const handleSave = () => {

@@ -14,8 +14,8 @@ function SignInPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
     //! Connexion + Récupération du token JWT
-
     try {
       const response = await axios.post(
         'http://localhost:3001/api/v1/user/login',
