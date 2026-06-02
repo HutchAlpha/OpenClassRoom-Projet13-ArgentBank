@@ -21,6 +21,7 @@ function UserPage() {
 
   const handleSave = () => {
     // TODO: call PUT /api/v1/user/profile to update name
+        
     setFirstName(editFirst)
     setLastName(editLast)
     setIsEditing(false)

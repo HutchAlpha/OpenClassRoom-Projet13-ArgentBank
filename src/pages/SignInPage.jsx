@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { GestionToken, GestionConnexion } from '../redux/bankSlice'
+import { GestionToken, GestionConnexion, GestionUser } from '../redux/bankSlice'
 
 function SignInPage() {
   const [username, setUsername] = useState('')
@@ -52,7 +52,7 @@ function SignInPage() {
       navigate('/user')
 
     } catch (error) {
-      console.log('LOGIN ERROR:', error.response?.data)
+     console.log('LOGIN ERROR:', error.response?.data || error.message)    
     }
   }
 
