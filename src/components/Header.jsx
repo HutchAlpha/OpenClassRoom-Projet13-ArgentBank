@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
 import { GestionConnexion, GestionToken, GestionUser } from '../redux/bankSlice.jsx'
 
 function Header() {
@@ -9,16 +8,6 @@ function Header() {
 
   const isLoggedIn = useSelector((state) => state.bank.isLoggedIn)
   const userName = useSelector((state) => state.bank.user.firstName)
-  const token = useSelector((state) => state.bank.token)
-
-  //! Sauvegarde du token dans le localStorage pour rendre la session persistante
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem('token', token)
-    } else {
-      localStorage.removeItem('token')
-    }
-  }, [token])
 
   //! Partie Deconnexion
   const handleSignOut = () => {
@@ -61,7 +50,7 @@ function Header() {
             </button>
           </>
         ) : (
-          <Link className="main-nav-item" to="/sign-in">
+          <Link className="main-nav-item" to="/login">
             <i className="fa fa-user-circle"></i>
             {' '}Sign In
           </Link>
