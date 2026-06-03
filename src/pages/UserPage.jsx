@@ -12,24 +12,22 @@ function UserPage() {
 
   const firstName = useSelector((state) => state.bank.user.firstName)
   const lastName = useSelector((state) => state.bank.user.lastName)
-
-  localStorage.getItem('token')
-  localStorage.getItem('user')
   const email = useSelector((state) => state.bank.user.email)
   const token = useSelector((state) => state.bank.token)
+  
   const dispatch = useDispatch()
 
 
   // TODO: replace with real token-based auth
+  //! Partie Deconnexion
   const handleSignOut = () => {
-    // clear stored token here
-    localStorage.removeItem('token')
     dispatch(GestionToken(null))
     dispatch(GestionConnexion(false))
-    dispatch(GestionUser({ firstName: null, lastName: null, email: null }))
-  }
+    dispatch(
+    GestionUser({firstName: null,lastName: null,email: null})
+    )}
 
-
+  //! Partie Update
   const handleSave = async () => {
     // TODO: call PUT /api/v1/user/profile to update name
 

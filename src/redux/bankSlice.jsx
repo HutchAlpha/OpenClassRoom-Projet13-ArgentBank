@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const savedToken = localStorage.getItem("token");
+
 const bankSlice = createSlice({
     name: "bank",
     initialState: {
@@ -8,7 +10,7 @@ const bankSlice = createSlice({
             lastName: null,
             email: null,
         },
-        token: null,
+        token: savedToken || null,
         isLoggedIn: false
     },
 
@@ -21,6 +23,12 @@ const bankSlice = createSlice({
         //! Token JWT
         GestionToken(state, action) {
             state.token = action.payload
+
+            if (action.payload) {
+                localStorage.setItem("token", action.payload)
+            } else {
+                localStorage.removeItem("token")
+            }
         },
 
         //! État de connexion
