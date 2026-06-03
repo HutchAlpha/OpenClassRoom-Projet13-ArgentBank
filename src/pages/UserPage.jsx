@@ -2,7 +2,7 @@ import { useState } from 'react'
 import mockAccounts from '../data/Compte.json'
 import { useSelector, useDispatch } from 'react-redux'
 import { GestionConnexion, GestionToken, GestionUser } from '../redux/bankSlice.jsx'
-
+import axios from 'axios'
 
 function UserPage() {
 
@@ -13,6 +13,9 @@ function UserPage() {
   const firstName = useSelector((state) => state.bank.user.firstName)
   const lastName = useSelector((state) => state.bank.user.lastName)
 
+  localStorage.getItem('token')
+  localStorage.getItem('user')
+  const email = useSelector((state) => state.bank.user.email)
   const token = useSelector((state) => state.bank.token)
   const dispatch = useDispatch()
 
@@ -26,12 +29,35 @@ function UserPage() {
     dispatch(GestionUser({ firstName: null, lastName: null, email: null }))
   }
 
-  const handleSave = () => {
+
+  const handleSave = async () => {
     // TODO: call PUT /api/v1/user/profile to update name
 
-    setFirstName(editFirst)
-    setLastName(editLast)
-    setIsEditing(false)
+    const updatedUser = {
+      firstName: editFirst,
+      lastName: editLast,
+      email: email
+    }
+
+    try {
+      const donneesUserMaj = await axios.put(
+        'http://localhost:3001/api/v1/user/profile',
+        {
+          firstName: editFirst,
+          lastName: editLast,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      dispatch(GestionUser(donneesUserMaj.data.body))
+      setIsEditing(false)
+    } catch (error) {
+      console.log('UPDATE ERROR:', error.response?.data || error.message)
+    }
   }
 
   const handleCancel = () => {
