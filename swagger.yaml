@@ -135,12 +135,12 @@ paths:
 
   # Endpoint 1 : liste des transactions
   /user/transactions:
-    get:
+    post:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Get user transactions
+      summary: Post user transactions
       description: Retrieve all transactions for the authenticated user
       parameters:
         - in: header
@@ -162,12 +162,12 @@ paths:
 
   # Endpoint 2 : détail d'une transaction (page appart)
   /user/transactions/{transactionId}:
-    get:
+    post:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Get transaction details
+      summary: Post transaction details
       description: Retrieve full details of a specific transaction for the authenticated user
       parameters:
         - in: header
