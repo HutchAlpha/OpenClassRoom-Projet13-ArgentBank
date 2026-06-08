@@ -211,5 +211,102 @@ paths:
 
       '500':
         description: Internal Server Error
+
 # Endpoint 2 : détail d'une transaction (page appart)
+
+/user/transactions/{transactionId}:
+  get:
+    security:
+      - Bearer: []
+
+    tags:
+      - Transactions Module
+
+    summary: Get transaction details
+    description: Retrieve full details of a specific transaction for the authenticated user.
+
+    parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        description: Bearer JWT token
+
+      - in: path
+        name: transactionId
+        required: true
+        type: string
+        description: ID of the transaction
+
+    produces:
+      - application/json
+
+    responses:
+      '200':
+        description: Transaction details retrieved successfully
+        schema:
+          $ref: '#/definitions/Transaction'
+
+      '401':
+        description: Unauthorized - Invalid or missing token
+
+      '404':
+        description: Transaction not found
+
+      '500':
+        description: Internal server error
+
 # Endpoint 3 : modification des informations d'une transaction
+
+/user/transactions/{transactionId}:
+  patch:
+    security:
+      - Bearer: []
+
+    tags:
+      - Transactions Module
+
+    summary: Update transaction information
+
+    description: Update category or note for a specific transaction belonging to the authenticated user.
+
+    parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        description: Bearer JWT token
+
+      - in: path
+        name: transactionId
+        required: true
+        type: string
+        description: ID of the transaction
+
+      - in: body
+        name: body
+        required: true
+        description: Fields to update in the transaction
+        schema:
+          $ref: '#/definitions/TransactionUpdate'
+
+    produces:
+      - application/json
+
+    responses:
+      '200':
+        description: Transaction updated successfully
+        schema:
+          $ref: '#/definitions/Transaction'
+
+      '400':
+        description: Invalid input data
+
+      '401':
+        description: Unauthorized - Invalid or missing token
+
+      '404':
+        description: Transaction not found
+
+      '500':
+        description: Internal server error
