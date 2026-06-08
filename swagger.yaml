@@ -180,5 +180,36 @@ definitions:
 #Les différentes réponses avec les codes de réponse correspondants qui ont un sens pour cet endpoint (ex. : 404 : réponse d'erreur d'article inconnu).
 
 # Endpoint 1 : liste des transactions
+paths:
+/user/transactions:
+  get:
+    security:
+      - Bearer: []
+    tags:
+      - Transactions Module
+    summary: Get user transactions
+    description: Retrieve all transactions for the authenticated user.
+
+    parameters:
+      - in: header
+        name: Authorization
+        description: Attach Bearer JWT token
+        required: true
+        type: string
+
+    produces:
+      - application/json
+
+    responses:
+      '200':
+        description: Transactions retrieved successfully
+        schema:
+          $ref: '#/definitions/TransactionListResponse'
+
+      '401':
+        description: Invalid or missing token
+
+      '500':
+        description: Internal Server Error
 # Endpoint 2 : détail d'une transaction (page appart)
 # Endpoint 3 : modification des informations d'une transaction
