@@ -131,16 +131,15 @@ paths:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
-      
 
-  # Endpoint 1 : liste des transactions
+  # Endpoint 1 : liste des transactions d'un utilisateur (par Mois)
   /user/transactions:
-    post:
+    get:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Post user transactions
+      summary: Get user transactions
       description: Retrieve all transactions for the authenticated user
       parameters:
         - in: header
@@ -148,6 +147,12 @@ paths:
           description: Attach Bearer JWT token
           required: true
           type: string
+        - in: query
+          name: month
+          description: Filter transactions by month (format YYYY-MM)
+          required: false
+          type: string
+          example: "2025-03"
       produces:
         - application/json
       responses:
@@ -157,9 +162,13 @@ paths:
             $ref: '#/definitions/TransactionListResponse'
         '401':
           description: Invalid or missing token
+        '403':
+          description: Forbidden - User does not have access to this resource
+        '404':
+          description: User not found
         '500':
           description: Internal Server Error
-
+          
   # Endpoint 2 : détail d'une transaction (page appart)
   /user/transactions/{transactionId}:
     post:
@@ -189,6 +198,10 @@ paths:
             $ref: '#/definitions/Transaction'
         '401':
           description: Unauthorized - Invalid or missing token
+        '404':
+          description: Transaction not found
+        '403':
+          description: Forbidden - User does not have access to this transaction
         '404':
           description: Transaction not found
         '500':
@@ -230,6 +243,8 @@ paths:
           description: Invalid input data
         '401':
           description: Unauthorized - Invalid or missing token
+        '403':
+          description: Forbidden - User does not have access to this transaction
         '404':
           description: Transaction not found
         '500':
