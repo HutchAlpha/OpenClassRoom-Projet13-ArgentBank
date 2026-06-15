@@ -34,7 +34,6 @@ function App() {
   dispatch(GestionConnexion(true))
 
   } catch (error) {
-    console.log('AUTO LOGIN ERROR:', error.response?.data || error.message)
     dispatch(GestionToken(null))
     dispatch(GestionConnexion(false))
     dispatch(

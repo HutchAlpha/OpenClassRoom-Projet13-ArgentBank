@@ -37,7 +37,6 @@ function UserPage() {
       email: email
     }
 
-    try {
       const donneesUserMaj = await axios.put(
         'http://localhost:3001/api/v1/user/profile',
         {
@@ -53,9 +52,6 @@ function UserPage() {
 
       dispatch(GestionUser(donneesUserMaj.data.body))
       setIsEditing(false)
-    } catch (error) {
-      console.log('UPDATE ERROR:', error.response?.data || error.message)
-    }
   }
 
   const handleCancel = () => {

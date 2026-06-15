@@ -16,7 +16,6 @@ function SignInPage() {
     e.preventDefault()
 
     //! Connexion + Récupération du token JWT
-    try {
       const response = await axios.post(
         'http://localhost:3001/api/v1/user/login',
         {
@@ -26,8 +25,6 @@ function SignInPage() {
       )
 
       const token = response.data.body.token
-
-      console.log(response.data)
 
       localStorage.setItem('token', token)
 
@@ -44,17 +41,12 @@ function SignInPage() {
             Authorization: `Bearer ${token}`,
           },
         }) 
-      
-      console.log(donneesUser.data)
-      
+            
       //!Envoie a Redux 
       dispatch(GestionUser(donneesUser.data.body))
 
       navigate('/user')
 
-    } catch (error) {
-     console.log('LOGIN ERROR:', error.response?.data || error.message)    
-    }
   }
 
   return (

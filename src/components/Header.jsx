@@ -11,7 +11,6 @@ function Header() {
 
   //! Partie Deconnexion
   const handleSignOut = () => {
-    console.log('User signed out')
 
     dispatch(GestionToken(null))
     dispatch(GestionUser({ firstName: null, lastName: null, email: null }))
