@@ -35,6 +35,12 @@ body {
   white-space: nowrap !important; /* 3 */
 }
 
+.error-message {
+  color: red;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
 .main-nav {
   display: flex;
   justify-content: space-between;

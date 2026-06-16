@@ -1,4 +1,4 @@
-# Informations générales sur l'API
+#! Informations générales sur l'API
 swagger: '2.0'
 
 info:
@@ -9,13 +9,13 @@ info:
 
 host: localhost:3001
 
-# Nom de base pour tous les endpoints de l'API
+#! Nom de base pour tous les endpoints de l'API
 basePath: /api/v1
 
 schemes:
   - http
 
-# Authentification utilisateur
+#! Authentification utilisateur
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -24,6 +24,7 @@ securityDefinitions:
 
 paths:
 
+  #! Connexion utilisateur
   /user/login:
     post:
       tags:
@@ -49,7 +50,7 @@ paths:
         '500':
           description: Internal Server Error
 
-  # Inscription utilisateur
+  #! Inscription utilisateur
   /user/signup:
     post:
       tags:
@@ -75,7 +76,7 @@ paths:
         '500':
           description: Internal Server Error
 
-  # Page de profil utilisateur
+  #! Page de profil utilisateur
   /user/profile:
     post:
       security:
@@ -103,6 +104,7 @@ paths:
         '500':
           description: Internal Server Error
 
+    #! Modification du profil utilisateur
     put:
       security:
         - Bearer: []
@@ -132,7 +134,7 @@ paths:
         '400':
           description: Invalid Fields
 
-  # Endpoint 1 : liste des transactions d'un utilisateur (par Mois)
+  #! Endpoint 1 : liste des transactions d'un utilisateur (par Mois)
   /user/transactions:
     get:
       security:
@@ -169,7 +171,7 @@ paths:
         '500':
           description: Internal Server Error
           
-  # Endpoint 2 : détail d'une transaction (page appart)
+  #! Endpoint 2 : détail d'une transaction (page appart)
   /user/transactions/{transactionId}:
     post:
       security:
@@ -202,12 +204,10 @@ paths:
           description: Transaction not found
         '403':
           description: Forbidden - User does not have access to this transaction
-        '404':
-          description: Transaction not found
         '500':
           description: Internal server error
 
-    # Endpoint 3 : modification des informations d'une transaction
+    #! Endpoint 3 : modification des informations d'une transaction
     patch:
       security:
         - Bearer: []
