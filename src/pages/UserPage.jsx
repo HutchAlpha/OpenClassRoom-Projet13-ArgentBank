@@ -4,65 +4,75 @@ import { useSelector, useDispatch } from 'react-redux'
 import { GestionConnexion, GestionToken, GestionUser } from '../redux/bankSlice.jsx'
 import axios from 'axios'
 
+
 function UserPage() {
 
   const [isEditing, setIsEditing] = useState(false)
   const [editFirst, setEditFirst] = useState('')
   const [editLast, setEditLast] = useState('')
+  const [validationError, setValidationError] = useState('')
 
   const firstName = useSelector((state) => state.bank.user.firstName)
   const lastName = useSelector((state) => state.bank.user.lastName)
   const email = useSelector((state) => state.bank.user.email)
   const token = useSelector((state) => state.bank.token)
-  
+
   const dispatch = useDispatch()
 
 
-  // TODO: replace with real token-based auth
   //! Partie Deconnexion
+  // TODO: replace with real token-based auth
   const handleSignOut = () => {
     dispatch(GestionToken(null))
     dispatch(GestionConnexion(false))
     dispatch(
-    GestionUser({firstName: null,lastName: null,email: null})
-    )}
+      GestionUser({ firstName: null, lastName: null, email: null})
+    )
+  }
+
 
   //! Partie Update
   const handleSave = async () => {
     // TODO: call PUT /api/v1/user/profile to update name
 
-    const updatedUser = {
-      firstName: editFirst,
-      lastName: editLast,
-      email: email
+    const trimmedFirst = editFirst.trim()
+    const trimmedLast = editLast.trim()
+
+    if (trimmedFirst.length < 2 || trimmedLast.length < 2) {
+      setValidationError('First name and last name must be at least 2 characters long !')
+      return
     }
 
-      const donneesUserMaj = await axios.put(
-        'http://localhost:3001/api/v1/user/profile',
-        {
-          firstName: editFirst,
-          lastName: editLast,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+    setValidationError('')
 
-      dispatch(GestionUser(donneesUserMaj.data.body))
-      setIsEditing(false)
+    const donneesUserMaj = await axios.put(
+      'http://localhost:3001/api/v1/user/profile',
+      {
+        firstName: trimmedFirst,
+        lastName: trimmedLast,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    dispatch(GestionUser(donneesUserMaj.data.body))
+    setIsEditing(false)
   }
 
   const handleCancel = () => {
     setEditFirst(firstName)
     setEditLast(lastName)
+    setValidationError('')
     setIsEditing(false)
   }
 
   const startEditing = () => {
     setEditFirst(firstName)
     setEditLast(lastName)
+    setValidationError('')
     setIsEditing(true)
   }
 
@@ -88,6 +98,9 @@ function UserPage() {
                   onChange={(e) => setEditLast(e.target.value)}
                   placeholder="Last Name"
                 />
+                {validationError && (
+                  <p className="error-message">{validationError}</p>
+                )}
                 <div className="edit-name-buttons">
                   <button className="edit-button" onClick={handleSave}>Save</button>
                   <button className="edit-button" onClick={handleCancel}>Cancel</button>
